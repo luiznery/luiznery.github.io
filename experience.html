@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Luiz Felipe Nery · Experience</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Schibsted+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Same system as the main page: one reading column, a date rail on the left. */
+:root{
+  --bg:#f6f5f9; --surface:#ffffff; --ink:#1c1925; --ink-2:#474255; --muted:#6c6680; --rule:#e2dfea;
+  --accent:#a3246e; --accent-ink:#8c1d5e; --accent-soft:#f5e6ef;
+  --f-display:"Newsreader","Iowan Old Style","Palatino Linotype",Georgia,serif;
+  --f-body:"Schibsted Grotesk","Segoe UI",system-ui,-apple-system,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  --gutter:clamp(16px,4vw,32px);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14121a; --surface:#1c1924; --ink:#eeebf4; --ink-2:#c6c0d3; --muted:#958fa6; --rule:#2e2a3a;
+    --accent:#d65a9c; --accent-ink:#e783b7; --accent-soft:#35192b; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14121a; --surface:#1c1924; --ink:#eeebf4; --ink-2:#c6c0d3; --muted:#958fa6; --rule:#2e2a3a;
+  --accent:#d65a9c; --accent-ink:#e783b7; --accent-soft:#35192b; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px)}
+body{background:var(--bg); color:var(--ink); font-family:var(--f-body); font-size:1rem; line-height:1.6; margin:0}
+a{color:var(--accent-ink); text-underline-offset:.18em; text-decoration-thickness:1px}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:4px}
+h1,h2,h3{font-family:var(--f-display); font-weight:500; line-height:1.15; text-wrap:balance; margin:0}
+p{margin:0}
+.wrap{max-width:52rem; margin-inline:auto; padding-inline:var(--gutter)}
+.label{font-family:var(--f-mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+
+.top{padding-block:2rem 2.5rem}
+.back{font-size:.9rem}
+.top h1{font-size:clamp(2.2rem,5.5vw,3.2rem); font-weight:400; letter-spacing:-.015em; margin-top:2rem}
+.top .sub{margin-top:.6rem; color:var(--ink-2); max-width:38rem}
+
+section{padding-block:1.5rem 2rem}
+section > h2{font-size:1.6rem; margin-bottom:1rem}
+.tl{list-style:none; margin:0; padding:0; border-top:1px solid var(--rule)}
+.tl > li{display:grid; grid-template-columns:9.5rem minmax(0,1fr); gap:1.25rem; padding-block:1.1rem; border-bottom:1px solid var(--rule)}
+.when{font-family:var(--f-mono); font-size:.76rem; color:var(--muted); padding-top:.2rem; font-variant-numeric:tabular-nums; line-height:1.5}
+.when span{display:block}
+.tl h3{font-family:var(--f-body); font-size:1rem; font-weight:600}
+.tl h3 .o{font-weight:400; color:var(--muted)}
+.tl li.now h3{color:var(--accent-ink)}
+.tl ul{margin:.4rem 0 0; padding-left:1.1rem; color:var(--ink-2); font-size:.92rem; display:grid; gap:.25rem}
+.tl p{margin-top:.3rem; color:var(--ink-2); font-size:.92rem}
+@media (max-width:560px){ .tl > li{grid-template-columns:1fr; gap:.2rem} .when span{display:inline} .when span + span::before{content:" · "} }
+
+.skills{display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,15rem),1fr)); gap:1.25rem}
+.skills h3{font-family:var(--f-mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); font-weight:400; margin-bottom:.5rem}
+.chips{display:flex; flex-wrap:wrap; gap:.4rem}
+.chip{font-size:.8rem; padding:.2rem .6rem; border:1px solid var(--rule); border-radius:999px; background:var(--surface); color:var(--ink-2)}
+footer{margin-top:1.5rem; padding-block:2rem 3rem; border-top:1px solid var(--rule); color:var(--muted); font-size:.85rem}
+footer .wrap{display:flex; flex-wrap:wrap; justify-content:space-between; gap:1rem}
+</style>
+</head>
+<body>
+<header class="wrap top">
+  <a class="back" href="index.html">← Luiz Felipe Nery</a>
+  <h1>Experience</h1>
+  <p class="sub">AI engineer and researcher with three-plus years across industry and academic research, in Brazil and France.</p>
+</header>
+
+<main class="wrap">
+  <section aria-labelledby="h-work">
+    <h2 id="h-work">Work &amp; research</h2>
+    <ol class="tl">
+      <li class="now"><div class="when"><span>Mar – Sep 2026</span><span>Paris</span></div><div>
+        <h3>Research intern <span class="o">· Valeo.ai</span></h3>
+        <ul><li>Developing a vision-language-action model for trajectory scoring in autonomous driving.</li><li>Fine-tuning open-source vision-language models and running large-scale experiments on HPC clusters.</li></ul>
+      </div></li>
+      <li><div class="when"><span>Aug – Sep 2025</span></div><div>
+        <h3>Freelance AI engineer <span class="o">· Mon Petit Brésil</span></h3>
+        <ul><li>Built LLM-based tools for pricing, inventory management and product-label translation, integrated with Shopify.</li></ul>
+      </div></li>
+      <li><div class="when"><span>Feb – Jul 2025</span><span>Grenoble</span></div><div>
+        <h3>Research intern <span class="o">· Inria, DataMove team</span></h3>
+        <ul><li>Benchmarked and deployed on HPC clusters a tool that couples MPI-based simulations with Dask.</li></ul>
+      </div></li>
+      <li><div class="when"><span>Mar – Aug 2024</span></div><div>
+        <h3>Data engineer <span class="o">· SnowFox AI</span></h3>
+        <ul><li>Built and fine-tuned LLM agents with retrieval-augmented generation for analytics and customer support, on LangChain and AWS.</li></ul>
+      </div></li>
+      <li><div class="when"><span>Feb 2023 – Feb 2024</span><span>Belo Horizonte</span></div><div>
+        <h3>R&amp;D engineer <span class="o">· UFMG / Petrobras</span></h3>
+        <ul><li>Applied metric learning and semi-supervised deep learning to build a similarity model for multivariate geological time series, for deep-water oil exploration.</li><li>Designed EigenNet, a spectral low-rank layer for network pruning, in PyTorch, JAX and Flax.</li></ul>
+      </div></li>
+      <li><div class="when"><span>Feb – May 2023</span><span>Belo Horizonte</span></div><div>
+        <h3>Teaching assistant, Deep Learning <span class="o">· UFMG</span></h3>
+        <ul><li>Taught and tutored students in deep learning with Python and PyTorch, applied to geological data.</li></ul>
+      </div></li>
+      <li><div class="when"><span>Mar 2020 – Feb 2023</span><span>Belo Horizonte</span></div><div>
+        <h3>Undergraduate research assistant <span class="o">· UFMG, LoCuS and Latin labs</span></h3>
+        <ul><li>Developed a method for identifying misinformation websites from social-network data (SBBD 2022).</li><li>Investigated biases of sentiment and toxicity models towards African American English (WebMedia 2024).</li><li>Helped build a search engine for public documents with Elasticsearch.</li></ul>
+      </div></li>
+      <li><div class="when"><span>Mar – Nov 2021</span></div><div>
+        <h3>Data science intern <span class="o">· Big Data</span></h3>
+        <ul><li>Developed a reinforcement-learning dynamic-pricing product for Burger King stores in Brazil, with pandas and scikit-learn.</li></ul>
+      </div></li>
+    </ol>
+  </section>
+
+  <section aria-labelledby="h-edu">
+    <h2 id="h-edu">Education</h2>
+    <ol class="tl">
+      <li><div class="when"><span>Sep 2025 – Oct 2026</span><span>Paris</span></div><div><h3>M2 DIGIT/IMAGE <span class="o">· Sorbonne Université and Télécom Paris</span></h3><p>Master's in deep learning, images and computer vision.</p></div></li>
+      <li><div class="when"><span>Aug 2024 – Jun 2025</span><span>Grenoble</span></div><div><h3>M1 MOSIG <span class="o">· Grenoble INP – Ensimag, Université Grenoble Alpes</span></h3><p>Master of Science in Informatics at Grenoble.</p></div></li>
+      <li><div class="when"><span>Mar 2018 – Mar 2023</span><span>Belo Horizonte</span></div><div><h3>Computer Science <span class="o">· Federal University of Minas Gerais (UFMG)</span></h3><p>Five-year degree, equivalent to a master's level.</p></div></li>
+    </ol>
+  </section>
+
+  <section aria-labelledby="h-skills">
+    <h2 id="h-skills">Skills</h2>
+    <div class="skills">
+      <div><h3>Machine learning</h3><div class="chips"><span class="chip">PyTorch</span><span class="chip">JAX</span><span class="chip">TensorFlow</span><span class="chip">Keras</span><span class="chip">OpenCV</span><span class="chip">scikit-learn</span><span class="chip">pandas</span><span class="chip">spaCy</span><span class="chip">NLTK</span><span class="chip">LangChain</span></div></div>
+      <div><h3>Programming</h3><div class="chips"><span class="chip">Python</span><span class="chip">C</span><span class="chip">C++</span><span class="chip">Java</span><span class="chip">SQL</span><span class="chip">TypeScript</span><span class="chip">Bash</span></div></div>
+      <div><h3>Infrastructure</h3><div class="chips"><span class="chip">Slurm</span><span class="chip">OAR</span><span class="chip">MPI</span><span class="chip">Docker</span><span class="chip">Singularity</span><span class="chip">Nix</span><span class="chip">Jenkins</span><span class="chip">AWS</span><span class="chip">Google Cloud</span></div></div>
+      <div><h3>Other</h3><div class="chips"><span class="chip">Elasticsearch</span><span class="chip">ROS 2</span><span class="chip">Apache Kafka</span><span class="chip">Flask</span><span class="chip">LaTeX</span><span class="chip">Git</span></div></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-lang">
+    <h2 id="h-lang">Languages &amp; volunteering</h2>
+    <ol class="tl">
+      <li><div class="when"><span>Languages</span></div><div><p style="margin:0;color:var(--ink)">Portuguese (native) · English (C1) · French (professional) · Spanish</p></div></li>
+      <li><div class="when"><span>Mar – Aug 2024</span></div><div><h3>Volunteer English teacher <span class="o">· Programa Incluir, UFMG</span></h3></div></li>
+    </ol>
+  </section>
+</main>
+
+<footer><div class="wrap"><a href="index.html">← Back to projects</a><a href="https://github.com/luiznery">github.com/luiznery</a></div></footer>
+</body>
+</html>

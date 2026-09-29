@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Luiz Felipe Nery</title>
+<meta name="description" content="Luiz Felipe Nery — AI engineer and researcher in Paris.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Schibsted+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one narrow column of short, clickable project cards. Everything else
+   (descriptions, numbers, figures) lives in a side panel that opens on click. */
+:root{
+  --bg:#f6f5f9; --surface:#ffffff; --ink:#1c1925; --ink-2:#474255; --muted:#6c6680; --rule:#e2dfea;
+  --accent:#a3246e; --accent-ink:#8c1d5e; --accent-soft:#f5e6ef; --blue:#3d6fb0; --blue-soft:#e6edf7;
+  --scrim:rgb(28 25 37 / .42);
+  --shadow:0 1px 2px rgb(28 25 37 / .05), 0 8px 24px -12px rgb(28 25 37 / .14);
+  --f-display:"Newsreader","Iowan Old Style","Palatino Linotype",Georgia,serif;
+  --f-body:"Schibsted Grotesk","Segoe UI",system-ui,-apple-system,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  --gutter:clamp(16px,4vw,32px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14121a; --surface:#1c1924; --ink:#eeebf4; --ink-2:#c6c0d3; --muted:#958fa6; --rule:#2e2a3a;
+    --accent:#d65a9c; --accent-ink:#e783b7; --accent-soft:#35192b; --blue:#5a8fe6; --blue-soft:#1b2436;
+    --scrim:rgb(0 0 0 / .6); --shadow:0 1px 2px rgb(0 0 0 / .3), 0 10px 30px -14px rgb(0 0 0 / .6);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14121a; --surface:#1c1924; --ink:#eeebf4; --ink-2:#c6c0d3; --muted:#958fa6; --rule:#2e2a3a;
+  --accent:#d65a9c; --accent-ink:#e783b7; --accent-soft:#35192b; --blue:#5a8fe6; --blue-soft:#1b2436;
+  --scrim:rgb(0 0 0 / .6); --shadow:0 1px 2px rgb(0 0 0 / .3), 0 10px 30px -14px rgb(0 0 0 / .6);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg); color:var(--ink); font-family:var(--f-body); font-size:1rem; line-height:1.6; margin:0}
+body.locked{overflow:hidden}
+a{color:var(--accent-ink); text-underline-offset:.18em; text-decoration-thickness:1px}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:6px}
+img{display:block; max-width:100%; height:auto}
+h1,h2,h3{font-family:var(--f-display); font-weight:500; line-height:1.15; text-wrap:balance; margin:0}
+p{margin:0}
+.wrap{max-width:62rem; margin-inline:auto; padding-inline:var(--gutter)}
+.label{font-family:var(--f-mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+
+/* ---------- header ---------- */
+.top{padding-block:clamp(3rem,9vw,5.5rem) 2.5rem}
+.top h1{font-size:clamp(2.4rem,6vw,3.6rem); font-weight:400; letter-spacing:-.015em; margin-top:.7rem}
+.top .bio{margin-top:1.1rem; max-width:40rem; color:var(--ink-2); font-size:1.075rem}
+.top .now{margin-top:1.4rem; display:flex; flex-wrap:wrap; gap:.5rem}
+.pill{font-size:.8rem; padding:.3rem .7rem; border:1px solid var(--rule); border-radius:999px; background:var(--surface); color:var(--ink-2)}
+.pill b{color:var(--ink); font-weight:600}
+.top .links{margin-top:1.4rem; display:flex; flex-wrap:wrap; gap:.5rem 1.5rem; font-size:.9rem}
+
+/* ---------- sections & cards ---------- */
+section{padding-block:1.75rem 2.25rem}
+section > .label{display:block; margin-bottom:1rem}
+.grid{display:grid; gap:1rem; grid-template-columns:repeat(auto-fill,minmax(min(100%,17.5rem),1fr))}
+.grid.two{grid-template-columns:repeat(auto-fill,minmax(min(100%,26rem),1fr))}
+.card{all:unset; box-sizing:border-box; cursor:pointer; display:grid; gap:.45rem; align-content:start; background:var(--surface); border:1px solid var(--rule); border-radius:12px; padding:1.1rem 1.2rem 1.15rem; position:relative; transition:border-color .15s, box-shadow .15s, transform .15s; min-width:0}
+.card:hover{border-color:color-mix(in srgb,var(--accent) 45%,var(--rule)); box-shadow:var(--shadow); transform:translateY(-1px)}
+.card:focus-visible{outline:2px solid var(--accent); outline-offset:3px}
+.card .where{font-family:var(--f-mono); font-size:.72rem; color:var(--muted); padding-right:1.5rem}
+.card h3{font-size:1.3rem; color:var(--ink)}
+.card .one{font-size:.9rem; color:var(--ink-2)}
+.card .go{position:absolute; top:1rem; right:1rem; color:var(--muted); font-size:1rem; line-height:1; transition:color .15s, transform .15s}
+.card:hover .go{color:var(--accent); transform:translateX(2px)}
+.card.feat{padding:0; overflow:hidden; border-color:color-mix(in srgb,var(--accent) 30%,var(--rule))}
+.card.feat .txt{display:grid; gap:.45rem; padding:1.1rem 1.25rem 1.25rem}
+.card.feat h3{font-size:1.55rem}
+.card.feat .go{top:auto; bottom:1.2rem}
+.thumb{aspect-ratio:16/8; background:#111; overflow:hidden; position:relative}
+.thumb img{width:100%; height:100%; object-fit:cover; object-position:center 70%}
+.thumb.pair{display:grid; grid-template-columns:1fr 1fr; gap:2px; background:var(--rule)}
+.thumb.pair img{object-position:center}
+.tagline{display:inline-block; justify-self:start; font-family:var(--f-mono); font-size:.66rem; letter-spacing:.07em; text-transform:uppercase; padding:.18rem .5rem; border-radius:999px; background:var(--accent-soft); color:var(--accent-ink)}
+
+.rows{display:grid; gap:0; border-top:1px solid var(--rule)}
+.row{all:unset; box-sizing:border-box; cursor:pointer; display:grid; grid-template-columns:3.5rem minmax(0,1fr) auto; gap:1rem; align-items:baseline; padding:.95rem .25rem; border-bottom:1px solid var(--rule)}
+.row:hover h3{color:var(--accent-ink)}
+.row:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.row .yr{font-family:var(--f-mono); font-size:.8rem; color:var(--muted)}
+.row h3{font-size:1.1rem; line-height:1.3; transition:color .15s}
+.row .v{font-size:.82rem; color:var(--muted); margin-top:.15rem}
+.row .go{color:var(--muted)}
+
+.cv{list-style:none; margin:0; padding:0; border-top:1px solid var(--rule)}
+.cv li{display:grid; grid-template-columns:9.5rem minmax(0,1fr); gap:1rem; padding:.6rem 0; border-bottom:1px solid var(--rule); font-size:.92rem}
+.cv .when{font-family:var(--f-mono); font-size:.75rem; color:var(--muted); padding-top:.15rem; font-variant-numeric:tabular-nums}
+.cv b{font-weight:600}
+.cv span.o{color:var(--muted)}
+@media (max-width:560px){ .cv li{grid-template-columns:1fr; gap:0} .row{grid-template-columns:minmax(0,1fr) auto} .row .yr{grid-column:1 / -1} }
+footer{padding-block:2rem 3rem; color:var(--muted); font-size:.85rem; border-top:1px solid var(--rule); margin-top:1.5rem}
+footer .wrap{display:flex; flex-wrap:wrap; justify-content:space-between; gap:1rem}
+
+/* ---------- detail panel ---------- */
+dialog{margin:0 0 0 auto; padding:0; border:0; height:100%; max-height:100%; width:min(48rem,100%); max-width:100%; background:var(--surface); color:var(--ink); box-shadow:-20px 0 60px -20px rgb(0 0 0 / .35); overflow-y:auto; overscroll-behavior:contain}
+dialog::backdrop{background:var(--scrim)}
+dialog[open]{animation:slide .22s ease-out}
+@keyframes slide{from{transform:translateX(24px); opacity:.4}to{transform:none; opacity:1}}
+@media (prefers-reduced-motion: reduce){ dialog[open]{animation:none} .card,.card .go{transition:none} }
+.d-head{position:sticky; top:0; z-index:2; display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:calc(.8rem + env(safe-area-inset-top,0px)) clamp(16px,4vw,2rem) .8rem; background:color-mix(in srgb,var(--surface) 92%,transparent); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border-bottom:1px solid var(--rule)}
+.close{all:unset; cursor:pointer; width:2.25rem; height:2.25rem; display:grid; place-items:center; border-radius:999px; border:1px solid var(--rule); color:var(--ink-2); font-size:1.15rem; line-height:1; flex:none}
+.close:hover{color:var(--ink); border-color:var(--ink-2)}
+.close:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.d-body{padding:1.5rem clamp(16px,4vw,2rem) calc(3rem + env(safe-area-inset-bottom,0px)); display:grid; gap:1.6rem}
+.d-body h2{font-size:clamp(1.7rem,4vw,2.2rem)}
+.d-body h2 em{font-style:italic; color:var(--accent)}
+.d-body .p{color:var(--ink-2)}
+.d-body .p + .p{margin-top:-.8rem}
+.stats{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1px; background:var(--rule); border:1px solid var(--rule); border-radius:10px; overflow:hidden}
+.stat{background:var(--surface); padding:.9rem 1rem; display:grid; gap:.3rem; align-content:start}
+.stat .num{font-family:var(--f-display); font-size:2rem; line-height:1; font-variant-numeric:tabular-nums}
+.stat .num.acc{color:var(--accent)}
+.stat .num small{font-size:.5em; color:var(--muted); margin-left:.15em}
+.stat p{font-size:.8rem; color:var(--ink-2)}
+@media (max-width:560px){ .stats{grid-template-columns:1fr} }
+figure{margin:0; display:grid; gap:.6rem; min-width:0}
+figcaption{font-size:.85rem; color:var(--muted)}
+figcaption b{color:var(--ink-2); font-weight:600}
+.plate{border:1px solid var(--rule); border-radius:10px; padding:.75rem; background:var(--surface); overflow:hidden}
+.plate.light{background:#fcfcfd}
+.plate.black{background:#000; padding:.4rem}
+.chips{display:flex; flex-wrap:wrap; gap:.4rem}
+.chip{font-size:.75rem; padding:.2rem .55rem; border:1px solid var(--rule); border-radius:999px; color:var(--ink-2); background:var(--bg)}
+.points{display:grid; gap:.9rem; grid-template-columns:repeat(2,minmax(0,1fr))}
+.points div{border-left:2px solid var(--accent-soft); padding-left:.9rem}
+.points h4{margin:0 0 .2rem; font-size:.95rem; font-weight:600}
+.points p{font-size:.85rem; color:var(--ink-2)}
+@media (max-width:600px){ .points{grid-template-columns:1fr} }
+.auth{font-size:.9rem; color:var(--ink-2)}
+.auth b{color:var(--ink)}
+
+/* segmentation plate */
+.seg{display:grid; grid-template-columns:auto repeat(4,minmax(0,1fr)); gap:5px; align-items:center}
+.seg .colh{font-family:var(--f-mono); font-size:.68rem; color:var(--ink-2); text-align:center; line-height:1.3}
+.seg .colh b{display:block; color:var(--ink); font-weight:500}
+.seg .colh.train b{color:var(--accent)}
+.seg .rowh{font-size:.8rem; font-weight:600; padding-right:.5rem; line-height:1.25}
+.seg .rowh span{display:block; font-weight:400; font-size:.7rem; color:var(--muted)}
+.seg .tile{position:relative; border-radius:4px; overflow:hidden; aspect-ratio:1/1}
+.seg .tile img{width:100%; height:100%; object-fit:cover}
+.seg .tile .d{position:absolute; left:3px; bottom:3px; font-family:var(--f-mono); font-size:.64rem; padding:.05rem .3rem; border-radius:3px; background:rgb(255 255 255 / .92); color:#1c1925}
+.seg .tile .d.bad{background:#1c1925; color:#fff}
+.seg .tile.trained{outline:2px solid var(--accent); outline-offset:1px}
+@media (max-width:520px){ .seg{grid-template-columns:repeat(4,minmax(0,1fr))} .seg .rowh{grid-column:1 / -1; padding-top:.3rem} .seg .corner{display:none} }
+.key{display:flex; flex-wrap:wrap; gap:.3rem 1rem; font-size:.74rem; color:var(--ink-2); margin-top:.5rem}
+.key i{display:inline-block; width:.75rem; height:.75rem; border-radius:3px; vertical-align:-.08rem; margin-right:.3rem}
+
+/* pipeline diagram */
+.flow{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1.8rem 1.6rem}
+.node{position:relative; border:1px solid var(--rule); border-radius:9px; background:var(--bg); padding:.65rem .75rem; min-width:0}
+.node h5{margin:0; font-size:.82rem; font-weight:600}
+.node p{margin:.15rem 0 0; font-size:.72rem; color:var(--muted); line-height:1.4}
+.node.new{border-color:var(--accent); background:var(--accent-soft)}
+.node.new h5{color:var(--accent-ink)}
+.node.quote p{font-family:var(--f-display); font-style:italic; font-size:.85rem; color:var(--ink-2)}
+.node.out{border-color:var(--ink-2)}
+.flow .node:not(.last)::after{content:""; position:absolute; top:50%; right:-1.3rem; width:1rem; height:1px; background:var(--muted)}
+.flow .node:not(.last)::before{content:""; position:absolute; top:calc(50% - 4px); right:-1.35rem; border:4px solid transparent; border-left:6px solid var(--muted); border-right:0}
+.flow .up::after{content:""; position:absolute; left:50%; top:-1.45rem; height:1.1rem; width:1px; background:var(--accent)}
+.flow .up::before{content:""; position:absolute; left:calc(50% - 4px); top:-1.55rem; border:4px solid transparent; border-bottom:6px solid var(--accent); border-top:0}
+.flow .row2{grid-row:2}
+.flow .feeds{display:none; margin-top:.3rem; font-family:var(--f-mono); font-size:.68rem; color:var(--accent-ink)}
+.newtag{position:absolute; top:-.55rem; right:.5rem; font-family:var(--f-mono); font-size:.6rem; letter-spacing:.08em; text-transform:uppercase; background:var(--accent); color:var(--surface); padding:.05rem .35rem; border-radius:4px}
+@media (max-width:640px){
+  .flow{grid-template-columns:1fr; gap:1.3rem}
+  .flow .row2{grid-row:auto}
+  .flow .node:not(.last)::after{top:auto; bottom:-1rem; right:auto; left:1.1rem; width:1px; height:.75rem}
+  .flow .node:not(.last)::before{top:auto; bottom:-1.15rem; right:auto; left:calc(1.1rem - 4px); border:4px solid transparent; border-top:6px solid var(--muted); border-bottom:0}
+  .flow .up::after,.flow .up::before{display:none}
+  .flow .branch{margin-top:.8rem} .flow .feeds{display:block}
+  .flow .o1{order:1}.flow .o2{order:2}.flow .o3{order:3}.flow .o4{order:4}.flow .o5{order:5}.flow .o6{order:6}.flow .o7{order:7}
+}
+.stills{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.6rem}
+.stills figure{gap:.4rem}
+.stills .shot{border-radius:7px; overflow:hidden; aspect-ratio:3/2; background:#111; border:1px solid var(--rule)}
+.stills .shot img{width:100%; height:100%; object-fit:cover; object-position:center bottom}
+.stills figcaption{font-size:.76rem}
+@media (max-width:600px){ .stills{grid-template-columns:1fr} }
+
+/* charts */
+.chart{border:1px solid var(--rule); border-radius:10px; padding:.9rem; position:relative; background:var(--surface)}
+.chart .ttl{font-family:var(--f-display); font-size:1.1rem; margin-bottom:.3rem}
+.legend{display:flex; flex-wrap:wrap; gap:.3rem 1.1rem; font-size:.82rem; color:var(--ink-2); margin-bottom:.4rem}
+.legend span{display:inline-flex; align-items:center; gap:.4rem}
+.legend svg{flex:none}
+.chart svg.plot{width:100%; height:auto; display:block; overflow:visible}
+.tip{position:absolute; pointer-events:none; background:var(--ink); color:var(--bg); font-size:.75rem; line-height:1.45; padding:.45rem .6rem; border-radius:6px; min-width:10.5rem; opacity:0; transition:opacity .12s; z-index:3}
+.tip b{font-family:var(--f-mono); font-weight:500}
+.tip .r{display:flex; justify-content:space-between; gap:1rem}
+.tip .r span:last-child{font-family:var(--f-mono)}
+details.tbl{margin-top:.6rem; font-size:.82rem}
+details.tbl summary{cursor:pointer; color:var(--ink-2)}
+.tscroll{overflow-x:auto; margin-top:.5rem}
+table{border-collapse:collapse; width:100%; min-width:28rem; font-variant-numeric:tabular-nums}
+th,td{text-align:right; padding:.35rem .5rem; border-bottom:1px solid var(--rule)}
+th:first-child,td:first-child{text-align:left}
+thead th{font-family:var(--f-mono); font-size:.68rem; font-weight:500; color:var(--muted)}
+
+.card .h3,.row .h3{display:block; font-family:var(--f-display); font-weight:500; line-height:1.15; text-wrap:balance; color:var(--ink)}
+.card .h3{font-size:1.3rem}
+.card.feat .h3{font-size:1.55rem}
+.row .h3{font-size:1.1rem; line-height:1.3; transition:color .15s}
+.row:hover .h3{color:var(--accent-ink)}
+.card .one,.card .where,.row .v{display:block}
+.card .thumb{display:block}
+.card .thumb.pair{display:grid}
+.card .thumb.pair > span{display:block; position:relative; overflow:hidden}
+.card .thumb.pair > span > span{position:absolute; left:.5rem; bottom:.5rem; font-family:var(--f-mono); font-size:.68rem; background:rgb(255 255 255 / .92); color:#1c1925; padding:.12rem .4rem; border-radius:4px}
+.card.feat .txt{display:grid}
+
+.steps{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:1.3rem}
+.steps li{position:relative; border:1px solid var(--rule); border-radius:9px; background:var(--bg); padding:.6rem .7rem; min-width:0}
+.steps b{display:block; font-size:.82rem}
+.steps span{display:block; font-size:.72rem; color:var(--muted); line-height:1.4; margin-top:.15rem}
+.steps li:not(.last)::after{content:"→"; position:absolute; right:-1.05rem; top:50%; transform:translateY(-50%); color:var(--muted); font-size:.85rem}
+.steps li:first-child{border-color:var(--accent); background:var(--accent-soft)}
+.loopnote{margin-top:.7rem; font-size:.8rem; color:var(--accent-ink); font-family:var(--f-mono)}
+@media (max-width:640px){ .steps{grid-template-columns:1fr; gap:1.1rem} .steps li:not(.last)::after{content:"↓"; right:auto; left:1rem; top:auto; bottom:-1.15rem; transform:none} }
+.cite{border-top:1px solid var(--rule); padding-top:1rem; display:grid; gap:.5rem}
+
+.hero{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:clamp(1.5rem,5vw,3.5rem); align-items:center}
+.hero-text{min-width:0}
+.me{width:clamp(8.5rem,17vw,11.5rem); height:auto; aspect-ratio:1/1; object-fit:cover; border-radius:22px; box-shadow:0 0 0 6px var(--accent-soft), var(--shadow); align-self:start; margin-top:2.2rem}
+@media (max-width:640px){
+  .hero{grid-template-columns:1fr}
+  .me{order:-1; width:6.5rem; border-radius:50%; margin-top:0; box-shadow:0 0 0 4px var(--accent-soft)}
+}
+</style>
+</head>
+<body>
+<main>
+  <header class="wrap top">
+    <div class="hero">
+      <div class="hero-text">
+    <p class="label">AI engineer &amp; researcher · Paris</p>
+    <h1>Luiz Felipe Nery</h1>
+    <p class="bio">I build deep-learning systems for vision and language, in research and in industry. I'm currently a research intern at Valeo.ai, working on vision-language models for self-driving cars, and a master's student in computer vision at Sorbonne Université and Télécom Paris. I'm looking for a PhD or a research-oriented role in deep learning.</p>
+    <div class="now">
+      <span class="pill"><b>Now</b> · Valeo.ai, until Sep 2026</span>
+      <span class="pill"><b>Master's</b> · Sorbonne Université · Télécom Paris, until Oct 2026</span>
+      <span class="pill"><b>Speaks</b> · PT · EN · FR · ES</span>
+    </div>
+    <div class="links"><a href="experience.html">Experience &amp; CV →</a><a href="https://github.com/luiznery">GitHub · luiznery</a><a href="#publications">Publications</a></div>
+      </div>
+      <img class="me" src="img/luiz.jpg" alt="Portrait of Luiz Felipe Nery" width="480" height="480">
+    </div>
+  </header>
+
+  <div class="wrap">
+    <section aria-labelledby="s-feat">
+      <span class="label" id="s-feat">Featured</span>
+      <div class="grid two">
+        <button class="card feat" data-open="valeo" aria-haspopup="dialog">
+          <span class="thumb"><img src="img/drive_city.png" alt="" width="640" height="426"></span>
+          <span class="txt">
+            <span class="tagline">Industry research</span>
+            <span class="where">Valeo.ai · Mar – Sep 2026</span>
+            <span class="h3">Vision-language models for self-driving</span>
+            <span class="one">Giving a driving planner a written description of the scene, and testing whether it drives better.</span>
+          </span>
+          <span class="go" aria-hidden="true">→</span>
+        </button>
+        <button class="card feat" data-open="fno" aria-haspopup="dialog">
+          <span class="thumb pair">
+            <span><img src="img/seg_unet_L0.jpg" alt="" width="241" height="241"><span>U-Net · 0.03</span></span>
+            <span><img src="img/seg_hno_L0.jpg" alt="" width="241" height="241"><span>Neural operator · 0.76</span></span>
+          </span>
+          <span class="txt">
+            <span class="tagline">Master's research</span>
+            <span class="where">Sorbonne Université · Oct 2025 – Oct 2026</span>
+            <span class="h3">Train at 256 px, predict at 1024 px</span>
+            <span class="one">Neural operators that keep segmenting kidney tissue at four times the resolution they were trained on.</span>
+          </span>
+          <span class="go" aria-hidden="true">→</span>
+        </button>
+      </div>
+    </section>
+
+    <section aria-labelledby="s-agents">
+      <span class="label" id="s-agents">Agents &amp; LLM tools</span>
+      <div class="grid">
+        <button class="card" data-open="snowfox" aria-haspopup="dialog"><span class="where">SnowFox AI · 2024</span><span class="h3">RAG agents for analytics and support</span><span class="one">LLM agents that answer questions from company data.</span><span class="go" aria-hidden="true">→</span></button>
+        <button class="card" data-open="mpb" aria-haspopup="dialog"><span class="where">Mon Petit Brésil · 2025</span><span class="h3">LLM tools for an online shop</span><span class="one">Pricing, inventory and label translation on Shopify.</span><span class="go" aria-hidden="true">→</span></button>
+      </div>
+    </section>
+
+    <section aria-labelledby="s-proj">
+      <span class="label" id="s-proj">Research &amp; projects</span>
+      <div class="grid">
+        <button class="card" data-open="misinfo" aria-haspopup="dialog"><span class="where">UFMG · paper, SBBD 2022</span><span class="h3">Finding misinformation websites</span><span class="one">Following who shares fake news to discover new fake-news sites.</span><span class="go" aria-hidden="true">→</span></button>
+        <button class="card" data-open="aae" aria-haspopup="dialog"><span class="where">UFMG · paper, WebMedia 2024</span><span class="h3">Bias in toxicity and sentiment models</span><span class="one">Do moderation tools penalise African American English?</span><span class="go" aria-hidden="true">→</span></button>
+        <button class="card" data-open="eigennet" aria-haspopup="dialog"><span class="where">UFMG / Petrobras · 2026</span><span class="h3">EigenNet</span><span class="one">Neural networks designed to be compressed after training.</span><span class="go" aria-hidden="true">→</span></button>
+        <button class="card" data-open="swarm" aria-haspopup="dialog"><span class="where">Sorbonne · 2025–26</span><span class="h3">Evolving robot swarms</span><span class="one">Robots that learn behaviour together, with no central computer.</span><span class="go" aria-hidden="true">→</span></button>
+        <button class="card" data-open="inria" aria-haspopup="dialog"><span class="where">Inria · 2025</span><span class="h3">Live analytics on supercomputers</span><span class="one">Connecting large simulations to Dask on HPC clusters.</span><span class="go" aria-hidden="true">→</span></button>
+        <button class="card" data-open="petro" aria-haspopup="dialog"><span class="where">UFMG / Petrobras · 2023</span><span class="h3">Similarity search for geology</span><span class="one">Metric learning on geological time series.</span><span class="go" aria-hidden="true">→</span></button>
+        <button class="card" data-open="create3" aria-haspopup="dialog"><span class="where">Grenoble INP – Ensimag · 2025</span><span class="h3">Autonomous mapping robot</span><span class="one">Map discovery and navigation with ROS 2.</span><span class="go" aria-hidden="true">→</span></button>
+        <button class="card" data-open="pricing" aria-haspopup="dialog"><span class="where">Big Data · 2021</span><span class="h3">Dynamic pricing with RL</span><span class="one">Reinforcement-learning prices for Burger King Brazil.</span><span class="go" aria-hidden="true">→</span></button>
+      </div>
+    </section>
+
+    <section id="publications" aria-labelledby="s-pub">
+      <span class="label" id="s-pub">Publications</span>
+      <div class="rows">
+        <button class="row" data-open="aae" aria-haspopup="dialog"><span class="yr">2024</span><span><span class="h3">A Comprehensive View of the Biases of Toxicity and Sentiment Analysis Methods Towards Utterances with African American English Expressions</span><span class="v">WebMedia · Resende, Nery, Benevenuto, Zannettou, Figueiredo</span></span><span class="go" aria-hidden="true">→</span></button>
+        <button class="row" data-open="misinfo" aria-haspopup="dialog"><span class="yr">2022</span><span><span class="h3">Identifying Brazilian Misinformation Websites</span><span class="v">SBBD · Araújo, Nery, Rodrigues, Couto, Reis, Silva, Almeida, Benevenuto</span></span><span class="go" aria-hidden="true">→</span></button>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer><div class="wrap"><span>Luiz Felipe Nery · Paris</span><span style="display:flex;gap:1.25rem;flex-wrap:wrap"><a href="experience.html">Experience &amp; CV</a><a href="https://github.com/luiznery">github.com/luiznery</a></span></div></footer>
+
+<dialog id="detail" aria-labelledby="d-title">
+  <div class="d-head"><p class="label" id="d-meta"></p><button class="close" type="button" aria-label="Close">✕</button></div>
+  <div class="d-body" id="d-body"></div>
+</dialog>
+
+<!-- ======================= project details ======================= -->
+<template id="t-valeo" data-meta="Valeo.ai · Research intern · Mar – Sep 2026">
+  <h2 id="d-title">Teaching a self-driving planner to <em>read</em> the road</h2>
+  <p class="p">At every planning step, a driving planner proposes dozens of candidate trajectories and a scorer picks the safest one. I'm adding language to that loop: an open-source vision-language model describes what the front camera sees, in words, and the scorer attends to that description when it ranks the trajectories.</p>
+  <p class="p">The question is whether words help a car drive better, especially in rare situations like a child running into the road, dense fog or an unusual obstacle. I test it closed-loop in the CARLA driving simulator, where the car's own decisions change what happens next, and fine-tune the models at scale on HPC clusters.</p>
+  <figure>
+    <div class="plate">
+      <div class="flow" role="img" aria-label="Cameras and the car's state go to a trajectory proposer; a scorer ranks the candidates and outputs the chosen trajectory. New: the front camera also goes to a vision-language model whose scene description feeds the scorer.">
+        <div class="node o1"><h5>Cameras + car state</h5><p>images, speed, route</p></div>
+        <div class="node o2"><h5>Proposer</h5><p>dozens of candidate trajectories</p></div>
+        <div class="node o3"><h5>Scorer</h5><p>safety, progress, comfort</p></div>
+        <div class="node out last o4"><h5>Chosen trajectory</h5><p>sent to the controller</p></div>
+        <div class="node new row2 o5 branch"><span class="newtag">new</span><h5>Front camera</h5><p>one frame per step</p></div>
+        <div class="node new row2 o6"><h5>Vision-language model</h5><p>open-source</p></div>
+        <div class="node new quote row2 up last o7"><h5>Scene description</h5><p>"A pedestrian runs in front."</p><span class="feeds">↳ goes into the scorer</span></div>
+      </div>
+    </div>
+    <figcaption><b>Where language enters the planner.</b> The description becomes tokens the scorer can attend to, next to the camera features.</figcaption>
+  </figure>
+  <div class="stills">
+    <figure><div class="shot"><img src="img/drive_city.png" alt="City street in the simulator with a fan of candidate trajectories; the chosen one in green." width="640" height="426"></div><figcaption><b>Candidates.</b> The chosen one is green.</figcaption></figure>
+    <figure><div class="shot"><img src="img/drive_fog.png" alt="Foggy highway in the simulator with candidate trajectories and a scene description." width="640" height="426"></div><figcaption><b>Fog.</b> The description still picks out a distant cyclist.</figcaption></figure>
+    <figure><div class="shot"><img src="img/drive_child.png" alt="A child running across the road in front of the stopped car; the words 'runs in front' are highlighted in the description." width="480" height="344"></div><figcaption><b>Rare hazard.</b> Highlighted: the words the scorer attended to most.</figcaption></figure>
+  </div>
+  <figure>
+    <div class="chart" data-chart="qa">
+      <p class="ttl">Does an off-the-shelf VLM understand a driving scene?</p>
+      <div class="legend" aria-hidden="true"><span><svg width="12" height="12"><circle cx="6" cy="6" r="5" fill="var(--accent)"/></svg>Vision-language model</span><span><svg width="12" height="12"><circle cx="6" cy="6" r="5" fill="var(--blue)"/></svg>Always give the most common answer</span></div>
+      <svg class="plot" role="img" aria-label="The model beats the most-common-answer baseline on intersections and rain, ties on red lights, obstacles and the oncoming lane, and falls far below it on traffic signs, night, parking and highway, which it reports far too often."></svg>
+      <div class="tip" aria-hidden="true"></div>
+      <details class="tbl"><summary>Show the numbers as a table</summary><div class="tscroll"><table><thead><tr><th>Question</th><th>Model</th><th>Baseline</th><th>True "yes"</th><th>Model "yes"</th></tr></thead><tbody data-rows="qa"></tbody></table></div></details>
+    </div>
+    <figcaption><b>Checking the words before trusting them.</b> Yes/no questions on about 620 simulator frames. The model is useful for intersections and weather, but says "highway", "night" and "parking" far too often.</figcaption>
+  </figure>
+  <div class="points">
+    <div><h4>Closed-loop, not only offline</h4><p>Every change is tested by letting the car drive whole routes, because mistakes compound in ways recorded data hides.</p></div>
+    <div><h4>Seeing is not acting</h4><p>Attention analysis shows which words the scorer reads, which separates noticing a hazard from acting on it.</p></div>
+  </div>
+  <div class="chips"><span class="chip">Vision-language models</span><span class="chip">End-to-end driving</span><span class="chip">Closed-loop evaluation</span><span class="chip">Attention analysis</span><span class="chip">Multi-GPU training</span><span class="chip">PyTorch</span></div>
+</template>
+
+<template id="t-fno" data-meta="Master's research · Sorbonne Université · Oct 2025 – Oct 2026">
+  <h2 id="d-title">Train at 256 px, predict at 1024 px: <em>resolution-robust</em> segmentation</h2>
+  <p class="p">Kidney biopsy slides are enormous, so models are usually trained on downsampled tiles. A convolutional network learns filters with a fixed size in pixels, so what it learns at 256 px does not carry over to the native 1024 px. Neural operators learn in the frequency domain, which should make them independent of resolution.</p>
+  <p class="p">I tested that claim: every model is trained at 256 px and evaluated at 128, 256, 512 and 1024 px, comparing U-Nets from 0.5 to 31 million parameters with neural operators.</p>
+  <div class="stats">
+    <div class="stat"><span class="num acc">0.72<small>Dice</small></span><p>neural operator at 1024 px, 4× the training resolution</p></div>
+    <div class="stat"><span class="num">≤ 0.08<small>Dice</small></span><p>every U-Net at 1024 px, from 0.49 M to 31 M parameters</p></div>
+    <div class="stat"><span class="num">658<small>k</small></span><p>parameters in the neural operator, 47× fewer than the largest U-Net</p></div>
+  </div>
+  <figure>
+    <div class="plate">
+      <div class="seg" role="img" aria-label="The same kidney tile at four resolutions. The U-Net finds the glomeruli only at its training resolution; the neural operator finds them at 1024, 512 and 256 px.">
+        <div class="corner"></div>
+        <div class="colh"><b>1024 px</b>native</div><div class="colh"><b>512 px</b></div><div class="colh train"><b>256 px</b>training</div><div class="colh"><b>128 px</b></div>
+        <div class="rowh">Ground truth</div>
+        <div class="tile"><img src="img/seg_gt_L0.jpg" alt="" width="241" height="241"></div><div class="tile"><img src="img/seg_gt_L1.jpg" alt="" width="241" height="241"></div><div class="tile"><img src="img/seg_gt_L2.jpg" alt="" width="241" height="241"></div><div class="tile"><img src="img/seg_gt_L3.jpg" alt="" width="241" height="241"></div>
+        <div class="rowh">U-Net<span>31 M params</span></div>
+        <div class="tile"><img src="img/seg_unet_L0.jpg" alt="" width="241" height="241"><span class="d bad">0.03</span></div><div class="tile"><img src="img/seg_unet_L1.jpg" alt="" width="241" height="241"><span class="d">0.62</span></div><div class="tile trained"><img src="img/seg_unet_L2.jpg" alt="" width="241" height="241"><span class="d">0.93</span></div><div class="tile"><img src="img/seg_unet_L3.jpg" alt="" width="241" height="241"><span class="d bad">0.00</span></div>
+        <div class="rowh">Neural operator<span>HNOSeg-XS, 658 k</span></div>
+        <div class="tile"><img src="img/seg_hno_L0.jpg" alt="" width="241" height="241"><span class="d">0.76</span></div><div class="tile"><img src="img/seg_hno_L1.jpg" alt="" width="241" height="241"><span class="d">0.75</span></div><div class="tile trained"><img src="img/seg_hno_L2.jpg" alt="" width="241" height="241"><span class="d">0.74</span></div><div class="tile"><img src="img/seg_hno_L3.jpg" alt="" width="241" height="241"><span class="d">0.41</span></div>
+      </div>
+      <div class="key"><span><i style="background:#3cb44b"></i>ground truth</span><span><i style="background:#d6243f"></i>prediction</span><span><i style="outline:2px solid var(--accent);outline-offset:-2px"></i>training resolution</span></div>
+    </div>
+    <figcaption><b>One validation tile at four resolutions</b>, with the Dice score on that tile.</figcaption>
+  </figure>
+  <figure>
+    <div class="chart" data-chart="dice">
+      <div class="legend" aria-hidden="true"><span><svg width="24" height="10"><line x1="1" y1="5" x2="23" y2="5" stroke="var(--accent)" stroke-width="2.5"/><circle cx="12" cy="5" r="4" fill="var(--accent)"/></svg>Neural operator (0.66 M)</span><span><svg width="24" height="10"><line x1="1" y1="5" x2="23" y2="5" stroke="var(--blue)" stroke-width="1.75"/><circle cx="12" cy="5" r="3.2" fill="var(--blue)"/></svg>U-Nets, four sizes (0.49 M – 31 M)</span></div>
+      <svg class="plot" role="img" aria-label="All models trained at 256 px. The neural operator stays near 0.72 Dice from 256 to 1024 px; every U-Net falls from about 0.88 at 256 px to 0.08 or less at 1024 px."></svg>
+      <div class="tip" aria-hidden="true"></div>
+      <details class="tbl"><summary>Show the numbers as a table</summary><div class="tscroll"><table><thead><tr><th>Model</th><th>128 px</th><th>256 px</th><th>512 px</th><th>1024 px</th></tr></thead><tbody data-rows="dice"></tbody></table></div></details>
+    </div>
+    <figcaption><b>Dice by test resolution, all models trained at 256 px</b>, on 63 validation tiles from 3 unseen slides.</figcaption>
+  </figure>
+  <div class="points">
+    <div><h4>Transfer is the operator's strength</h4><p>At 256 px small U-Nets still win (0.88–0.90 vs about 0.74). The operator's advantage is keeping its accuracy when the resolution changes.</p></div>
+    <div><h4>Tile edges matter</h4><p>Glomeruli cut by the tile edge are found less often. Mirror padding at prediction time, with no retraining, removes the wrap-around artefacts.</p></div>
+    <div><h4>More capacity can hurt transfer</h4><p>More frequency modes, a U-shaped operator or attention tended to help at 256 px and hurt at 1024 px.</p></div>
+    <div><h4>Next</h4><p>Training on several resolutions at once, several seeds, and a held-out test set.</p></div>
+  </div>
+  <div class="chips"><span class="chip">Neural operators</span><span class="chip">Medical imaging</span><span class="chip">Segmentation</span><span class="chip">PyTorch</span><span class="chip">Cloud GPUs</span></div>
+</template>
+
+
+<template id="t-eigennet" data-meta="Research · UFMG / Petrobras · 2026">
+  <h2 id="d-title">EigenNet: networks built to be compressed</h2>
+  <p class="p">Each layer is a symmetric matrix stored through its eigendecomposition, W = QΛQᵀ. A sparsity penalty on the eigenvalues pushes most of them to zero during training, so afterwards the layer can be cut to a much lower rank.</p>
+  <p class="p">I first designed it in PyTorch and JAX/Flax. Results so far are mixed: EigenNet is on par with compressing a trained network by SVD, a little ahead at moderate compression and behind at the smallest sizes. I'm re-running the experiments against stronger baselines.</p>
+  <figure><div class="plate light"><img src="img/eigennet_pareto.png" alt="Test accuracy against parameters kept, on Fashion-MNIST and MNIST, for EigenNet variants, dense plus SVD pruning, and dense networks trained at each size." width="1600" height="591"></div><figcaption><b>Accuracy after pruning against parameters kept.</b></figcaption></figure>
+  <div class="chips"><span class="chip">Model compression</span><span class="chip">Low-rank layers</span><span class="chip">PyTorch</span><span class="chip">JAX / Flax</span></div>
+</template>
+
+<template id="t-swarm" data-meta="Team project · Sorbonne Université · 2025 – 2026">
+  <h2 id="d-title">Robots that evolve their behaviour together</h2>
+  <p class="p">We implemented mEDEA, a decentralized evolutionary algorithm, on a swarm of small Pogobot robots. Each robot runs a tiny neural-network controller and passes its "genome" to neighbours over infrared; controllers that do well in the environment spread through the swarm, with no central computer.</p>
+  <p class="p">It runs in the Pogosim simulator and on real robots. I extended the simulator with an orbiting light source to test moving targets.</p>
+  <figure><div class="plate black"><img src="img/swarm_heatmaps.jpg" alt="Two circular heatmaps of robot positions: with a central light the swarm gathers in the middle; without it, robots stay spread out." width="1600" height="730"></div><figcaption><b>Where the robots spent their time</b> over 30 runs of 30 minutes. With a light at the centre (left) the swarm gathers around it; without one (right) it stays spread out.</figcaption></figure>
+  <div class="chips"><span class="chip">Swarm robotics</span><span class="chip">Evolutionary algorithms</span><span class="chip">Embedded C</span><span class="chip">Simulation</span></div>
+</template>
+
+<template id="t-snowfox" data-meta="SnowFox AI · Data engineer · Mar – Aug 2024">
+  <h2 id="d-title">RAG agents for analytics and customer support</h2>
+  <p class="p">Built and fine-tuned LLM agents that answer analytics questions and customer-support requests by retrieving from company data (retrieval-augmented generation), deployed on AWS.</p>
+  <div class="chips"><span class="chip">LLM agents</span><span class="chip">RAG</span><span class="chip">LangChain</span><span class="chip">Fine-tuning</span><span class="chip">AWS</span></div>
+</template>
+
+<template id="t-mpb" data-meta="Mon Petit Brésil · Freelance · Aug – Sep 2025">
+  <h2 id="d-title">LLM tools for an online shop</h2>
+  <p class="p">Built LLM-based tools connected to the shop's Shopify store: price suggestions, inventory management, and automatic translation of product labels.</p>
+  <div class="chips"><span class="chip">LLM tools</span><span class="chip">Shopify</span><span class="chip">Translation</span><span class="chip">Pricing</span></div>
+</template>
+
+<template id="t-inria" data-meta="Inria, DataMove team · Research intern · Feb – Jul 2025">
+  <h2 id="d-title">Live analytics on supercomputers</h2>
+  <p class="p">Benchmarked and deployed a tool that connects MPI-based simulations to Dask, so their data can be analysed while they run on HPC clusters.</p>
+  <div class="chips"><span class="chip">HPC</span><span class="chip">MPI</span><span class="chip">Dask</span><span class="chip">Benchmarking</span></div>
+</template>
+
+<template id="t-petro" data-meta="UFMG / Petrobras · R&amp;D engineer · Feb 2023 – Feb 2024">
+  <h2 id="d-title">Similarity search for geological data</h2>
+  <p class="p">Used metric learning and semi-supervised deep learning to build a similarity model for multivariate geological time series, used in deep-water oil exploration. I also taught deep learning for geological data as a teaching assistant.</p>
+  <div class="chips"><span class="chip">Metric learning</span><span class="chip">Semi-supervised learning</span><span class="chip">Time series</span><span class="chip">PyTorch</span></div>
+</template>
+
+<template id="t-create3" data-meta="Grenoble INP – Ensimag · Apr – Jun 2025">
+  <h2 id="d-title">Autonomous mapping robot</h2>
+  <p class="p">Autonomous map discovery and navigation with an iRobot Create3 robot, using ROS 2 and the Gazebo simulator.</p>
+  <div class="chips"><span class="chip">ROS 2</span><span class="chip">Gazebo</span><span class="chip">Navigation</span><span class="chip">Mapping</span></div>
+</template>
+
+<template id="t-pricing" data-meta="Big Data · Data science intern · Mar – Nov 2021">
+  <h2 id="d-title">Dynamic pricing with reinforcement learning</h2>
+  <p class="p">Developed a dynamic-pricing product for Burger King stores in Brazil, using reinforcement learning.</p>
+  <div class="chips"><span class="chip">Reinforcement learning</span><span class="chip">Pandas</span><span class="chip">scikit-learn</span></div>
+</template>
+
+<template id="t-misinfo" data-meta="Research · UFMG · SBBD 2022">
+  <h2 id="d-title">Finding misinformation websites by following who shares them</h2>
+  <p class="p">Much of the fake news online comes from websites that exist to publish it, and new ones keep appearing. Instead of checking sites one by one, the method follows the people who share fake news: the sites they link to are good candidates for the next misinformation website.</p>
+  <p class="p">I developed the method and its crawling and ranking pipeline, and we ran it on Twitter from Brazilian and US starting points, comparing it with starting points that were not fake news.</p>
+  <figure>
+    <div class="plate">
+      <ol class="steps" aria-label="The discovery loop">
+        <li><b>Seed</b><span>a confirmed fake-news link</span></li>
+        <li><b>Sharers</b><span>users who posted it</span></li>
+        <li><b>Timelines</b><span>everything else they shared</span></li>
+        <li><b>Rank</b><span>linked sites, by how many of these users share them, how often, and popularity</span></li>
+        <li class="last"><b>Check</b><span>the top site, by hand or against fact-checking lists</span></li>
+      </ol>
+      <p class="loopnote">↺ A confirmed site becomes the next seed, so each cycle widens the search.</p>
+    </div>
+    <figcaption><b>The discovery loop.</b></figcaption>
+  </figure>
+  <div class="cite">
+    <p class="auth">Leandro Araújo, <b>Luiz Felipe Nery</b>, Isadora C. Rodrigues, João M. M. Couto, Júlio C. S. Reis, Ana P. Silva, Jussara M. Almeida, Fabrício Benevenuto. <i>Identifying Brazilian Misinformation Websites.</i> Brazilian Symposium on Databases (SBBD), 2022.</p>
+    <p><a href="https://doi.org/10.5753/sbbd.2022.225351">Read the paper (DOI)</a></p>
+  </div>
+  <div class="chips"><span class="chip">Misinformation</span><span class="chip">Social networks</span><span class="chip">Web crawling</span><span class="chip">Ranking</span></div>
+</template>
+
+<template id="t-aae" data-meta="Research · UFMG · WebMedia 2024">
+  <h2 id="d-title">Do toxicity and sentiment models penalise African American English?</h2>
+  <p class="p">Platforms use toxicity and sentiment models to moderate content automatically. We measured whether these tools treat African American English (AAE) fairly, by scoring speech with and without AAE expressions while controlling for what is being said.</p>
+  <p class="p">We used four datasets: subtitles of YouTube movie reviews, a Twitter corpus, and two spoken-English corpora (CORAAL for AAE, Buckeye for comparison). Across most models and settings, heavy use of AAE expressions made a speaker look substantially more toxic, even when talking about nearly the same subject.</p>
+  <figure>
+    <div class="plate light"><img src="img/aae_spoken.png" alt="Three plots, one per toxicity model (Perspective, Detoxify, Detoxify Unbiased), on spoken English. The curve for utterances with AAE expressions lies above the curve for utterances without, most clearly for Perspective." width="1190" height="412"></div>
+    <figcaption><b>Spoken English (CORAAL and Buckeye).</b> Each curve is the share of utterances with a toxicity score of at least x. Black: utterances containing African American English expressions. Red: utterances without them.</figcaption>
+  </figure>
+  <figure>
+    <div class="plate light"><img src="img/aae_youtube.png" alt="The same three plots for YouTube movie reviews. Utterances with AAE expressions again reach high toxicity scores more often, most clearly for Perspective." width="1186" height="412"></div>
+    <figcaption><b>YouTube movie reviews.</b> The black curve sits above the red one again, most clearly for Perspective: speech with AAE expressions is rated toxic more often. These are raw score distributions; the paper also tests the effect with regression models that account for other features of the text.</figcaption>
+  </figure>
+  <div class="cite">
+    <p class="auth">Guilherme H. Resende, <b>Luiz F. Nery</b>, Fabrício Benevenuto, Savvas Zannettou, Flavio Figueiredo. <i>A Comprehensive View of the Biases of Toxicity and Sentiment Analysis Methods Towards Utterances with African American English Expressions.</i> Brazilian Symposium on Multimedia and the Web (WebMedia), 2024.</p>
+    <p><a href="https://doi.org/10.48550/arXiv.2401.12720">Read the paper (arXiv)</a></p>
+  </div>
+  <div class="chips"><span class="chip">Algorithmic fairness</span><span class="chip">NLP</span><span class="chip">Content moderation</span><span class="chip">Regression analysis</span></div>
+</template>
+
+<script>
+(function(){
+  var dlg=document.getElementById("detail"), body=document.getElementById("d-body"), meta=document.getElementById("d-meta"), opener=null;
+  var NS="http://www.w3.org/2000/svg";
+
+  /* ---------- chart data ---------- */
+  var LV=[{px:"128 px"},{px:"256 px",train:true},{px:"512 px"},{px:"1024 px",native:true}];
+  var HNO={name:"Neural operator (0.66 M)",v:[0.548,0.714,0.718,0.724]};
+  var UN=[{name:"U-Net c8 (0.49 M)",v:[0.502,0.884,0.710,0.080]},{name:"U-Net c10 (0.76 M)",v:[0.563,0.879,0.628,0.027]},{name:"U-Net c16 (1.9 M)",v:[0.553,0.899,0.735,0.024]},{name:"U-Net c64 (31 M)",v:[0.535,0.873,0.539,0.027]}];
+  var Q=[
+    {q:"Inside an intersection?",vlm:79.7,base:54.4,gt:54.4,yes:56.5},{q:"Raining?",vlm:99.5,base:90.4,gt:90.4,yes:90.3},
+    {q:"Red light or stop ahead?",vlm:71.5,base:70.2,gt:29.8,yes:42.8},{q:"Oncoming lane clear?",vlm:65.6,base:65.2,gt:65.2,yes:67.2},
+    {q:"Obstacle in my lane?",vlm:62.1,base:61.5,gt:61.5,yes:70.7},{q:"Traffic signs visible?",vlm:37.0,base:68.7,gt:31.3,yes:62.0},
+    {q:"Is it night?",vlm:29.1,base:95.5,gt:4.5,yes:75.3},{q:"In a parking lot?",vlm:33.9,base:99.5,gt:0.5,yes:66.2},{q:"On a highway?",vlm:22.1,base:97.6,gt:2.4,yes:80.3}
+  ];
+
+  function mk(svg){return function(n,a){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);svg.appendChild(e);return e;};}
+  function inner(box){var cs=getComputedStyle(box);return Math.max(280,Math.min(680,Math.round(box.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight))));}
+  function place(tip,box,svg,W,px,py,left){var r=svg.getBoundingClientRect(),br=box.getBoundingClientRect(),s=r.width/W;var x=r.left-br.left+px*s+12;if(left||x+tip.offsetWidth>br.width-8)x=Math.min(x,br.width-tip.offsetWidth-8);tip.style.left=Math.max(8,x)+"px";tip.style.top=(r.top-br.top+py*s+6)+"px";tip.style.opacity=1;}
+
+  function drawDice(box){
+    var svg=box.querySelector("svg"), tip=box.querySelector(".tip"), W=inner(box), nar=W<500, H=nar?280:320, m={l:38,r:nar?80:112,t:12,b:44}, iw=W-m.l-m.r, ih=H-m.t-m.b, el=mk(svg);
+    svg.setAttribute("viewBox","0 0 "+W+" "+H); svg.innerHTML="";
+    function x(i){return m.l+iw*i/3;} function y(v){return m.t+ih*(1-v);}
+    el("rect",{x:x(1)-20,y:m.t,width:40,height:ih,fill:"var(--accent-soft)",rx:4});
+    [0,.2,.4,.6,.8,1].forEach(function(t){el("line",{x1:m.l,x2:m.l+iw,y1:y(t),y2:y(t),stroke:"var(--rule)"});el("text",{x:m.l-7,y:y(t)+4,"text-anchor":"end","font-size":10.5,fill:"var(--muted)","font-family":"var(--f-mono)"}).textContent=t.toFixed(1);});
+    LV.forEach(function(L,i){el("text",{x:x(i),y:H-m.b+19,"text-anchor":"middle","font-size":nar?10.5:11.5,fill:L.train?"var(--accent-ink)":"var(--ink-2)","font-family":"var(--f-mono)","font-weight":L.train?600:400}).textContent=L.px;if(L.train||L.native)el("text",{x:x(i),y:H-m.b+34,"text-anchor":"middle","font-size":10,fill:"var(--muted)"}).textContent=L.train?"training":"native";});
+    function p(v){return v.map(function(d,i){return(i?"L":"M")+x(i).toFixed(1)+" "+y(d).toFixed(1);}).join(" ");}
+    UN.forEach(function(s){el("path",{d:p(s.v),fill:"none",stroke:"var(--blue)","stroke-width":1.75,"stroke-linejoin":"round","stroke-opacity":.85});s.v.forEach(function(d,i){el("circle",{cx:x(i),cy:y(d),r:3.5,fill:"var(--blue)",stroke:"var(--surface)","stroke-width":1.5});});});
+    el("path",{d:p(HNO.v),fill:"none",stroke:"var(--accent)","stroke-width":2.5,"stroke-linejoin":"round"});
+    HNO.v.forEach(function(d,i){el("circle",{cx:x(i),cy:y(d),r:4.5,fill:"var(--accent)",stroke:"var(--surface)","stroke-width":2});});
+    el("text",{x:x(3)+9,y:y(.724)+4,"font-size":11.5,fill:"var(--ink)","font-weight":600}).textContent=nar?"Operator":"Neural operator";
+    el("text",{x:x(3)+9,y:y(.724)+18,"font-size":10.5,fill:"var(--muted)","font-family":"var(--f-mono)"}).textContent="0.72";
+    el("text",{x:x(3)+9,y:y(.05)-6,"font-size":11.5,fill:"var(--ink)","font-weight":600}).textContent="U-Nets";
+    el("text",{x:x(3)+9,y:y(.05)+8,"font-size":10.5,fill:"var(--muted)","font-family":"var(--f-mono)"}).textContent="0.02–0.08";
+    var cr=el("line",{x1:0,x2:0,y1:m.t,y2:m.t+ih,stroke:"var(--ink-2)","stroke-dasharray":"3 3",opacity:0});
+    var hit=el("rect",{x:m.l-20,y:m.t,width:iw+40,height:ih,fill:"transparent"});
+    function show(i){cr.setAttribute("x1",x(i));cr.setAttribute("x2",x(i));cr.setAttribute("opacity",.6);var h='<b>'+LV[i].px+(LV[i].train?' · training':'')+'</b><div class="r"><span>'+HNO.name+'</span><span>'+HNO.v[i].toFixed(2)+'</span></div>';UN.forEach(function(s){h+='<div class="r"><span>'+s.name+'</span><span>'+s.v[i].toFixed(2)+'</span></div>';});tip.innerHTML=h;place(tip,box,svg,W,x(i),m.t,i>=2);}
+    hit.addEventListener("pointermove",function(e){var r=svg.getBoundingClientRect(),sx=(e.clientX-r.left)*W/r.width;show(Math.max(0,Math.min(3,Math.round((sx-m.l)/iw*3))));});
+    hit.addEventListener("pointerleave",function(){cr.setAttribute("opacity",0);tip.style.opacity=0;});
+  }
+
+  function drawQA(box){
+    var svg=box.querySelector("svg"), tip=box.querySelector(".tip"), W=inner(box), nar=W<500, fs=nar?11:12, rh=nar?32:36, m={l:nar?142:168,r:nar?12:20,t:8,b:38}, H=m.t+m.b+rh*Q.length, iw=W-m.l-m.r, el=mk(svg);
+    svg.setAttribute("viewBox","0 0 "+W+" "+H); svg.innerHTML="";
+    function x(v){return m.l+iw*v/100;} function yc(i){return m.t+rh*i+rh/2;}
+    (nar?[0,50,100]:[0,25,50,75,100]).forEach(function(t){el("line",{x1:x(t),x2:x(t),y1:m.t,y2:H-m.b,stroke:"var(--rule)"});el("text",{x:x(t),y:H-m.b+17,"text-anchor":"middle","font-size":10.5,fill:"var(--muted)","font-family":"var(--f-mono)"}).textContent=t+"%";});
+    el("text",{x:m.l+iw/2,y:H-3,"text-anchor":"middle","font-size":10.5,fill:"var(--muted)"}).textContent="accuracy";
+    el("line",{x1:4,x2:W-m.r,y1:m.t+rh*5,y2:m.t+rh*5,stroke:"var(--ink-2)","stroke-dasharray":"2 4",opacity:.5});
+    Q.forEach(function(d,i){
+      var y=yc(i);
+      el("text",{x:m.l-9,y:y+4,"text-anchor":"end","font-size":fs,fill:"var(--ink)"}).textContent=d.q;
+      el("line",{x1:x(Math.min(d.vlm,d.base)),x2:x(Math.max(d.vlm,d.base)),y1:y,y2:y,stroke:"var(--muted)","stroke-width":2,"stroke-linecap":"round",opacity:.45});
+      el("circle",{cx:x(d.base),cy:y,r:5,fill:"var(--blue)",stroke:"var(--surface)","stroke-width":2});
+      el("circle",{cx:x(d.vlm),cy:y,r:5.5,fill:"var(--accent)",stroke:"var(--surface)","stroke-width":2});
+      var hit=el("rect",{x:0,y:y-rh/2,width:W,height:rh,fill:"transparent"});
+      hit.addEventListener("pointerenter",function(){tip.innerHTML='<b>'+d.q+'</b><div class="r"><span>Model accuracy</span><span>'+d.vlm.toFixed(1)+'%</span></div><div class="r"><span>Most-common answer</span><span>'+d.base.toFixed(1)+'%</span></div><div class="r"><span>Truly "yes"</span><span>'+d.gt.toFixed(1)+'%</span></div><div class="r"><span>Model says "yes"</span><span>'+d.yes.toFixed(1)+'%</span></div>';place(tip,box,svg,W,nar?m.l:x(Math.max(d.vlm,d.base)),y+rh/2,nar);});
+      hit.addEventListener("pointerleave",function(){tip.style.opacity=0;});
+    });
+  }
+
+  function fillTables(root){
+    var t=root.querySelector('[data-rows="dice"]'); if(t) [HNO].concat(UN).forEach(function(s){var tr=document.createElement("tr");tr.innerHTML="<td>"+s.name+"</td>"+s.v.map(function(d){return"<td>"+d.toFixed(3)+"</td>";}).join("");t.appendChild(tr);});
+    var q=root.querySelector('[data-rows="qa"]'); if(q) Q.forEach(function(d){var tr=document.createElement("tr");tr.innerHTML="<td>"+d.q+"</td><td>"+d.vlm.toFixed(1)+"%</td><td>"+d.base.toFixed(1)+"%</td><td>"+d.gt.toFixed(1)+"%</td><td>"+d.yes.toFixed(1)+"%</td>";q.appendChild(tr);});
+  }
+  function drawCharts(){body.querySelectorAll("[data-chart]").forEach(function(b){(b.dataset.chart==="dice"?drawDice:drawQA)(b);});}
+
+  /* ---------- open / close ---------- */
+  function open(id,btn){
+    var t=document.getElementById("t-"+id); if(!t) return;
+    opener=btn||null; meta.innerHTML=t.dataset.meta||"";
+    body.innerHTML=""; body.appendChild(t.content.cloneNode(true)); fillTables(body);
+    if(typeof dlg.showModal==="function"){ if(!dlg.open) dlg.showModal(); } else { dlg.setAttribute("open",""); }
+    document.body.classList.add("locked"); dlg.scrollTop=0;
+    requestAnimationFrame(drawCharts);
+  }
+  function close(){ if(typeof dlg.close==="function"&&dlg.open) dlg.close(); else dlg.removeAttribute("open"); }
+  dlg.addEventListener("close",function(){document.body.classList.remove("locked"); body.innerHTML=""; if(opener) opener.focus();});
+  dlg.querySelector(".close").addEventListener("click",close);
+  dlg.addEventListener("click",function(e){ if(e.target===dlg){ var r=dlg.getBoundingClientRect(); if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom) close(); }});
+  document.querySelectorAll("[data-open]").forEach(function(b){b.addEventListener("click",function(){open(b.dataset.open,b);});});
+  var rt; window.addEventListener("resize",function(){clearTimeout(rt);rt=setTimeout(function(){if(dlg.open)drawCharts();},150);});
+})();
+</script>
+</body>
+</html>
