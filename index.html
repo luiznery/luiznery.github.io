@@ -213,6 +213,14 @@ thead th{font-family:var(--f-mono); font-size:.68rem; font-weight:500; color:var
 .card .thumb.pair > span{display:block; position:relative; overflow:hidden}
 .card .thumb.pair > span > span{position:absolute; left:.5rem; bottom:.5rem; font-family:var(--f-mono); font-size:.68rem; background:rgb(255 255 255 / .92); color:#1c1925; padding:.12rem .4rem; border-radius:4px}
 .card.feat .txt{display:grid}
+.card.feat.wide{grid-column:1 / -1}
+.card.feat.wide .thumb img{object-position:center top}
+@media (min-width:760px){
+  .card.feat.wide{grid-template-columns:minmax(0,1.35fr) minmax(0,1fr); gap:0}
+  .card.feat.wide .thumb{aspect-ratio:auto; height:100%; min-height:15rem}
+  .card.feat.wide .txt{align-content:center; padding:1.5rem 1.75rem}
+}
+.d-body .repo{font-family:var(--f-mono); font-size:.85rem}
 
 .steps{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:1.3rem}
 .steps li{position:relative; border:1px solid var(--rule); border-radius:9px; background:var(--bg); padding:.6rem .7rem; min-width:0}
@@ -251,6 +259,16 @@ thead th{font-family:var(--f-mono); font-size:.68rem; font-weight:500; color:var
     <section aria-labelledby="s-feat">
       <span class="label" id="s-feat">Featured</span>
       <div class="grid two">
+        <button class="card feat wide" data-open="labels" aria-haspopup="dialog">
+          <span class="thumb"><img src="img/label_extractor.gif" alt="" width="960" height="645"></span>
+          <span class="txt">
+            <span class="tagline">Open-source project</span>
+            <span class="where">Freelance work, open-sourced · 2025 – 2026</span>
+            <span class="h3">Product Label Extractor</span>
+            <span class="one">Product photos to multilingual e-commerce data with vision LLMs that run on a laptop CPU.</span>
+          </span>
+          <span class="go" aria-hidden="true">→</span>
+        </button>
         <button class="card feat" data-open="valeo" aria-haspopup="dialog">
           <span class="thumb"><img src="img/drive_city.png" alt="" width="640" height="426"></span>
           <span class="txt">
@@ -317,6 +335,15 @@ thead th{font-family:var(--f-mono); font-size:.68rem; font-weight:500; color:var
 </dialog>
 
 <!-- ======================= project details ======================= -->
+<template id="t-labels" data-meta="Freelance work, open-sourced · 2025 – 2026">
+  <h2 id="d-title">Product Label Extractor: photos to <em>multilingual</em> product data</h2>
+  <p class="p">An online shop selling imported products had to publish the legal label information of every item (ingredients, allergens, nutrition, storage, responsible operator) in the customer's language, and the only source was the physical package. This tool turns that into: take a few photos, review, export.</p>
+  <p class="p">A small vision model reads each photo, a text model turns the transcription into validated structured fields and translates them into the languages you pick (seven EU languages), and unit conversions run in plain code instead of the prompt. Products accumulate in an editable catalog and are exported as a Shopify import file. Everything runs locally on a laptop CPU with open models through Ollama, or with the OpenAI API by changing one setting.</p>
+  <figure><div class="plate light"><img src="img/label_extractor.gif" alt="Demo: two products are added with their photos, extracted, corrected by hand in the catalog and exported as a CSV file." width="960" height="645"></div><figcaption><b>The app.</b> Two products are extracted, one mistranslation is fixed by hand, and the catalog is exported for Shopify.</figcaption></figure>
+  <p class="repo"><a href="https://github.com/luiznery/label-extractor">github.com/luiznery/label-extractor →</a></p>
+  <div class="chips"><span class="chip">Vision-language models</span><span class="chip">Structured output</span><span class="chip">Local LLMs</span><span class="chip">Evaluation</span><span class="chip">Gradio</span><span class="chip">Python</span></div>
+</template>
+
 <template id="t-valeo" data-meta="Valeo.ai · Research intern · Mar – Sep 2026">
   <h2 id="d-title">Teaching a self-driving planner to <em>read</em> the road</h2>
   <p class="p">At every planning step, a driving planner proposes dozens of candidate trajectories and a scorer picks the safest one. I'm adding language to that loop: an open-source vision-language model describes what the front camera sees, in words, and the scorer attends to that description when it ranks the trajectories.</p>
