@@ -295,25 +295,12 @@ thead th{font-family:var(--f-mono); font-size:.68rem; font-weight:500; color:var
       </div>
     </section>
 
-    <section aria-labelledby="s-agents">
-      <span class="label" id="s-agents">Agents &amp; LLM tools</span>
-      <div class="grid">
-        <button class="card" data-open="snowfox" aria-haspopup="dialog"><span class="where">SnowFox AI · 2024</span><span class="h3">RAG agents for analytics and support</span><span class="one">LLM agents that answer questions from company data.</span><span class="go" aria-hidden="true">→</span></button>
-        <button class="card" data-open="mpb" aria-haspopup="dialog"><span class="where">Mon Petit Brésil · 2025</span><span class="h3">LLM tools for an online shop</span><span class="one">Pricing, inventory and label translation on Shopify.</span><span class="go" aria-hidden="true">→</span></button>
-      </div>
-    </section>
-
     <section aria-labelledby="s-proj">
       <span class="label" id="s-proj">Research &amp; projects</span>
       <div class="grid">
-        <button class="card" data-open="misinfo" aria-haspopup="dialog"><span class="where">UFMG · paper, SBBD 2022</span><span class="h3">Finding misinformation websites</span><span class="one">Following who shares fake news to discover new fake-news sites.</span><span class="go" aria-hidden="true">→</span></button>
-        <button class="card" data-open="aae" aria-haspopup="dialog"><span class="where">UFMG · paper, WebMedia 2024</span><span class="h3">Bias in toxicity and sentiment models</span><span class="one">Do moderation tools penalise African American English?</span><span class="go" aria-hidden="true">→</span></button>
+        <button class="card" data-open="snowfox" aria-haspopup="dialog"><span class="where">SnowFox AI · 2024</span><span class="h3">RAG agents for analytics and support</span><span class="one">LLM agents that answer questions from company data.</span><span class="go" aria-hidden="true">→</span></button>
         <button class="card" data-open="eigennet" aria-haspopup="dialog"><span class="where">UFMG / Petrobras · 2026</span><span class="h3">EigenNet</span><span class="one">Neural networks designed to be compressed after training.</span><span class="go" aria-hidden="true">→</span></button>
         <button class="card" data-open="swarm" aria-haspopup="dialog"><span class="where">Sorbonne · 2025–26</span><span class="h3">Evolving robot swarms</span><span class="one">Robots that learn behaviour together, with no central computer.</span><span class="go" aria-hidden="true">→</span></button>
-        <button class="card" data-open="inria" aria-haspopup="dialog"><span class="where">Inria · 2025</span><span class="h3">Live analytics on supercomputers</span><span class="one">Connecting large simulations to Dask on HPC clusters.</span><span class="go" aria-hidden="true">→</span></button>
-        <button class="card" data-open="petro" aria-haspopup="dialog"><span class="where">UFMG / Petrobras · 2023</span><span class="h3">Similarity search for geology</span><span class="one">Metric learning on geological time series.</span><span class="go" aria-hidden="true">→</span></button>
-        <button class="card" data-open="create3" aria-haspopup="dialog"><span class="where">Grenoble INP – Ensimag · 2025</span><span class="h3">Autonomous mapping robot</span><span class="one">Map discovery and navigation with ROS 2.</span><span class="go" aria-hidden="true">→</span></button>
-        <button class="card" data-open="pricing" aria-haspopup="dialog"><span class="where">Big Data · 2021</span><span class="h3">Dynamic pricing with RL</span><span class="one">Reinforcement-learning prices for Burger King Brazil.</span><span class="go" aria-hidden="true">→</span></button>
       </div>
     </section>
 
@@ -427,7 +414,6 @@ thead th{font-family:var(--f-mono); font-size:.68rem; font-weight:500; color:var
   <div class="chips"><span class="chip">Neural operators</span><span class="chip">Medical imaging</span><span class="chip">Segmentation</span><span class="chip">PyTorch</span><span class="chip">Cloud GPUs</span></div>
 </template>
 
-
 <template id="t-eigennet" data-meta="Research · UFMG / Petrobras · 2026">
   <h2 id="d-title">EigenNet: networks built to be compressed</h2>
   <p class="p">Each layer is a symmetric matrix stored through its eigendecomposition, W = QΛQᵀ. A sparsity penalty on the eigenvalues pushes most of them to zero during training, so afterwards the layer can be cut to a much lower rank.</p>
@@ -448,36 +434,6 @@ thead th{font-family:var(--f-mono); font-size:.68rem; font-weight:500; color:var
   <h2 id="d-title">RAG agents for analytics and customer support</h2>
   <p class="p">Built and fine-tuned LLM agents that answer analytics questions and customer-support requests by retrieving from company data (retrieval-augmented generation), deployed on AWS.</p>
   <div class="chips"><span class="chip">LLM agents</span><span class="chip">RAG</span><span class="chip">LangChain</span><span class="chip">Fine-tuning</span><span class="chip">AWS</span></div>
-</template>
-
-<template id="t-mpb" data-meta="Mon Petit Brésil · Freelance · Aug – Sep 2025">
-  <h2 id="d-title">LLM tools for an online shop</h2>
-  <p class="p">Built LLM-based tools connected to the shop's Shopify store: price suggestions, inventory management, and automatic translation of product labels.</p>
-  <div class="chips"><span class="chip">LLM tools</span><span class="chip">Shopify</span><span class="chip">Translation</span><span class="chip">Pricing</span></div>
-</template>
-
-<template id="t-inria" data-meta="Inria, DataMove team · Research intern · Feb – Jul 2025">
-  <h2 id="d-title">Live analytics on supercomputers</h2>
-  <p class="p">Benchmarked and deployed a tool that connects MPI-based simulations to Dask, so their data can be analysed while they run on HPC clusters.</p>
-  <div class="chips"><span class="chip">HPC</span><span class="chip">MPI</span><span class="chip">Dask</span><span class="chip">Benchmarking</span></div>
-</template>
-
-<template id="t-petro" data-meta="UFMG / Petrobras · R&amp;D engineer · Feb 2023 – Feb 2024">
-  <h2 id="d-title">Similarity search for geological data</h2>
-  <p class="p">Used metric learning and semi-supervised deep learning to build a similarity model for multivariate geological time series, used in deep-water oil exploration. I also taught deep learning for geological data as a teaching assistant.</p>
-  <div class="chips"><span class="chip">Metric learning</span><span class="chip">Semi-supervised learning</span><span class="chip">Time series</span><span class="chip">PyTorch</span></div>
-</template>
-
-<template id="t-create3" data-meta="Grenoble INP – Ensimag · Apr – Jun 2025">
-  <h2 id="d-title">Autonomous mapping robot</h2>
-  <p class="p">Autonomous map discovery and navigation with an iRobot Create3 robot, using ROS 2 and the Gazebo simulator.</p>
-  <div class="chips"><span class="chip">ROS 2</span><span class="chip">Gazebo</span><span class="chip">Navigation</span><span class="chip">Mapping</span></div>
-</template>
-
-<template id="t-pricing" data-meta="Big Data · Data science intern · Mar – Nov 2021">
-  <h2 id="d-title">Dynamic pricing with reinforcement learning</h2>
-  <p class="p">Developed a dynamic-pricing product for Burger King stores in Brazil, using reinforcement learning.</p>
-  <div class="chips"><span class="chip">Reinforcement learning</span><span class="chip">Pandas</span><span class="chip">scikit-learn</span></div>
 </template>
 
 <template id="t-misinfo" data-meta="Research · UFMG · SBBD 2022">
