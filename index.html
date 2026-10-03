@@ -288,7 +288,7 @@ thead th{font-family:var(--f-mono); font-size:.68rem; font-weight:500; color:var
             <span class="tagline">Open-source project</span>
             <span class="where">Freelance work, open-sourced · 2025 – 2026</span>
             <span class="h3">Product Label Extractor</span>
-            <span class="one">Product photos to multilingual e-commerce data with vision LLMs that run on a laptop CPU.</span>
+            <span class="one">Product photos to multilingual e-commerce data with vision LLMs that run locally or through APIs.</span>
           </span>
           <span class="go" aria-hidden="true">→</span>
         </button>
@@ -299,7 +299,7 @@ thead th{font-family:var(--f-mono); font-size:.68rem; font-weight:500; color:var
       <span class="label" id="s-proj">Research &amp; projects</span>
       <div class="grid">
         <button class="card" data-open="snowfox" aria-haspopup="dialog"><span class="where">SnowFox AI · 2024</span><span class="h3">RAG agents for analytics and support</span><span class="one">LLM agents that answer questions from company data.</span><span class="go" aria-hidden="true">→</span></button>
-        <button class="card" data-open="eigennet" aria-haspopup="dialog"><span class="where">UFMG / Petrobras · 2026</span><span class="h3">EigenNet</span><span class="one">Neural networks designed to be compressed after training.</span><span class="go" aria-hidden="true">→</span></button>
+        <button class="card" data-open="eigennet" aria-haspopup="dialog"><span class="where">UFMG / Petrobras · 2026</span><span class="h3">EigenNet</span><span class="one">Neural networks designed to be pruned during and after training.</span><span class="go" aria-hidden="true">→</span></button>
         <button class="card" data-open="swarm" aria-haspopup="dialog"><span class="where">Sorbonne · 2025–26</span><span class="h3">Evolving robot swarms</span><span class="one">Robots that learn behaviour together, with no central computer.</span><span class="go" aria-hidden="true">→</span></button>
       </div>
     </section>
@@ -416,7 +416,7 @@ thead th{font-family:var(--f-mono); font-size:.68rem; font-weight:500; color:var
 
 <template id="t-eigennet" data-meta="Research · UFMG / Petrobras · 2026">
   <h2 id="d-title">EigenNet: networks built to be compressed</h2>
-  <p class="p">Each layer is a symmetric matrix stored through its eigendecomposition, W = QΛQᵀ. A sparsity penalty on the eigenvalues pushes most of them to zero during training, so afterwards the layer can be cut to a much lower rank.</p>
+  <p class="p">Each layer is a symmetric matrix stored through its eigendecomposition, W = QΛQᵀ. A sparsity penalty on the eigenvalues pushes most of them to zero, so the layer can be pruned to a much lower rank both during training and afterwards.</p>
   <p class="p">I first designed it in PyTorch and JAX/Flax. Results so far are mixed: EigenNet is on par with compressing a trained network by SVD, a little ahead at moderate compression and behind at the smallest sizes. I'm re-running the experiments against stronger baselines.</p>
   <figure><div class="plate light"><img src="img/eigennet_pareto.png" alt="Test accuracy against parameters kept, on Fashion-MNIST and MNIST, for EigenNet variants, dense plus SVD pruning, and dense networks trained at each size." width="1600" height="591"></div><figcaption><b>Accuracy after pruning against parameters kept.</b></figcaption></figure>
   <div class="chips"><span class="chip">Model compression</span><span class="chip">Low-rank layers</span><span class="chip">PyTorch</span><span class="chip">JAX / Flax</span></div>
