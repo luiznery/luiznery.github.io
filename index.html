@@ -215,7 +215,6 @@ thead th{font-family:var(--f-mono); font-size:.68rem; font-weight:500; color:var
 .card.feat .txt{display:grid}
 .card.feat.wide{grid-column:1 / -1}
 .card.feat.wide .thumb img{object-position:center top}
-.card.feat.wide .thumb.pair img{object-position:center}
 @media (min-width:760px){
   .card.feat.wide{grid-template-columns:minmax(0,1.35fr) minmax(0,1fr); gap:0}
   .card.feat.wide .thumb{aspect-ratio:auto; height:100%; min-height:15rem}
@@ -270,7 +269,7 @@ thead th{font-family:var(--f-mono); font-size:.68rem; font-weight:500; color:var
           </span>
           <span class="go" aria-hidden="true">→</span>
         </button>
-        <button class="card feat wide" data-open="fno" aria-haspopup="dialog">
+        <button class="card feat" data-open="fno" aria-haspopup="dialog">
           <span class="thumb pair">
             <span><img src="img/seg_unet_L0.jpg" alt="" width="241" height="241"><span>U-Net · 0.03</span></span>
             <span><img src="img/seg_hno_L0.jpg" alt="" width="241" height="241"><span>Neural operator · 0.76</span></span>
